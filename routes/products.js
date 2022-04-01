@@ -18,6 +18,7 @@ router.get('/',verified,async(req,res)=>{
 router.post('/create',verified,async (req,res)=>{
     const product = new Product({
         SKU: req.body.SKU,
+        name: req.body.name,
         stock: req.body.stock,
         price: req.body.price,
         weight: req.body.weight,
@@ -38,6 +39,7 @@ router.post('/create',verified,async (req,res)=>{
 router.post('/update/:id',verified,async (req,res)=>{
     const product = Product.findById(req.params.id).then(obj =>{
         obj.SKU = req.body.SKU
+        obj.name = req.body.name
         obj.stock = req.body.stock
         obj.price = req.body.price
         obj.weight = req.body.weight
