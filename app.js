@@ -31,6 +31,5 @@ app.get('/posts',(req,res)=>{
 mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true})
 .then(()=>console.log("callback connect db"))
 .catch(err => console.log(err))
-
-
+console.log(process.env.PORT)
 app.listen(process.env.PORT,'localhost');
