@@ -33,4 +33,4 @@ mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true})
 .catch(err => console.log(err))
 
 
-app.listen(8000);
+app.listen(process.env.PORT);
