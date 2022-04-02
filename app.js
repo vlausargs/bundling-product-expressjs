@@ -7,7 +7,8 @@ const app = express();
 
 const usersRouter  = require('./routes/users');
 const loginRouter  = require('./routes/auth');
-const productRouter  = require('./routes/products');
+const productsRouter  = require('./routes/products');
+const bundlesRouter = require('./routes/bundles')
 
 // app.use('/posts', ()=>{
 //     console.log("post middleware")
@@ -15,7 +16,8 @@ const productRouter  = require('./routes/products');
 app.use(bodyParser.json());
 
 app.use('/users', usersRouter);
-app.use('/products', productRouter);
+app.use('/products', productsRouter);
+app.use('/bundles', bundlesRouter);
 app.use('/', loginRouter);
 
 app.get('/',(req,res)=>{

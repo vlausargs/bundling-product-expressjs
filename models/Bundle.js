@@ -7,13 +7,17 @@ const BundleSchema = mongoose.Schema({
         unique: true,
     },
     qty: {
-        type:String,
+        type: Array,
         required:true,
     },
     price: {
-        type:String,
+        type:Array,
         required:true,
-    }, 
+    },
+    productID: {
+        type: Array,
+        required: true,
+    }
 
 })
 
