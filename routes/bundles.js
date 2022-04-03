@@ -6,8 +6,44 @@ const Product = require('../models/Product')
 
 router.get('/', verified, async(req, res) => {
     try {
-        const bundles = await Bundle.find()
+        let bundles = await Bundle.find()
+        
+        for (let index = 0; index < bundles.length; index++) {
+            var bundle = bundles[index].toObject();
+            
+       
 
+       
+            for(let i = 0; i < bundle.productID.length; i++) {
+                const query = Product.where({SKU: bundle.productID[i]})
+                query.findOne((err, product) => {
+                    if (err) {
+                        console.log(err)
+                        return res.status(400).send({
+                            "message":"Bad Request " + err
+                        })
+                    }
+                    // console.log(product)
+                    if (product) {
+                        bundle.bundlingStock = product.stock/bundle.qty[i]
+                    }
+                    else {
+                        
+                        bundle['bundlingStock'] = 0
+                        // return res.status(400).send({
+                            //     "message": "Product not found :("
+                            // })
+                        }
+                        
+                        bundles[index] = bundle
+                    }
+                    )
+                    console.log(bundle)
+                }
+            // return bundle;
+      
+        
+    }
         res.json(bundles)
     } catch(e) {
         res.status(400).send({
@@ -51,7 +87,8 @@ router.post('/create', verified, async(req, res) => {
                     })
                 }
                 else {
-                    bundle.price += product.price
+                    bundle.price += (product.price * bundle.qty[i])
+                    console.log(bundle)
                 }
             }
             else {
@@ -62,6 +99,7 @@ router.post('/create', verified, async(req, res) => {
 
         })
     }
+    
 
     bundle.save().then((data) => {
         return res.json(data)

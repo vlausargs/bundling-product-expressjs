@@ -15,6 +15,7 @@ router.get('/',verified,async(req,res)=>{
         res.status(400).send({"message":"Bad Request"+e});
     }
 })
+
 router.post('/create',verified,async (req,res)=>{
     const product = new Product({
         SKU: req.body.SKU,
