@@ -98,7 +98,7 @@ router.post('/create', verified, async (req, res) => {
     })
 
 })
-w
+
 router.delete('/delete/:id', verified, async (req, res) => {
     const bundle = Bundle.findById(req.params.id).then(obj => {
         return res.json(obj)
