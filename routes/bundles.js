@@ -18,7 +18,7 @@ router.get('/', verified, async (req, res) => {
                 if (product) {
                     if (bundle.bundlingStock !== 0 )bundle.bundlingStock = Math.min(bundle.bundlingStock, (product[0].stock / bundle.qty[i])) 
                     else bundle.bundlingStock = (product[0].stock / bundle.qty[i])
-                    console.log(bundle.bundlingStock)
+                    // console.log(bundle.bundlingStock)
                 }
                 bundles[index] = bundle
             }
@@ -61,7 +61,7 @@ router.post('/create', verified, async (req, res) => {
                     "message": "Bad Request " + err
                 })
             }
-            console.log(product)
+            // console.log(product)
             if (product) {
                 if (product.stock < bundle.productID[i].qty) {
                     return res.status(400).send({
@@ -70,7 +70,7 @@ router.post('/create', verified, async (req, res) => {
                 }
                 else {
                     bundle.price += (product.price * bundle.qty[i])
-                    console.log(bundle)
+                    // console.log(bundle)
                 }
             }
             else {
