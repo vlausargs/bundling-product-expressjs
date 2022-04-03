@@ -5,10 +5,15 @@ const verified = require('./verifyToken');
 const Product = require('../models/Product');
 
 router.get('/',verified,async(req,res)=>{
+    const { page = 1, limit = 10 } = req.query;
     try{
-        const products = await Product.find();
+        const products = await Product.find().limit(limit * 1).skip((page - 1) * limit).exec();
+        // console.log(req.query)
+        const count = await Product.countDocuments();
         
-        res.json(products);
+        res.json({products,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page});
         
 
     }catch(e){

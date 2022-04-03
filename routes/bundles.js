@@ -5,9 +5,12 @@ const Bundle = require('../models/Bundle')
 const Product = require('../models/Product')
 
 router.get('/', verified, async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
     try {
-        let bundles = await Bundle.find()
-
+        let bundles = await Bundle.find().limit(limit * 1).skip((page - 1) * limit).exec();
+        // console.log(req.query)
+        const count = await Bundle.countDocuments();
+    
         for (let index = 0; index < bundles.length; index++) {
             var bundle = bundles[index].toObject();
             bundle.bundlingStock = 0 
@@ -26,7 +29,9 @@ router.get('/', verified, async (req, res) => {
 
 
         }
-        res.json(bundles)
+        res.json({bundles,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page})
     } catch (e) {
         res.status(400).send({
             "message": "Bad Request" + e
