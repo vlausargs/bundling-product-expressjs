@@ -67,7 +67,7 @@ router.post('/update/:id',verified,async (req,res)=>{
 })
 
 router.post('/delete/:id',verified,async (req,res)=>{
-    const product = Product.findById(req.params.id).then(obj =>{
+    const product = Product.findById(req.params.id).remove().exec().then(obj =>{
         return res.json(obj)
     }).catch(err=>{
         console.log("error!")

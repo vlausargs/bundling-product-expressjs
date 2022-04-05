@@ -100,12 +100,13 @@ router.post('/create', verified, async (req, res) => {
 })
 
 router.delete('/delete/:id', verified, async (req, res) => {
-    const bundle = Bundle.findById(req.params.id).then(obj => {
+    const bundle = Bundle.findById(req.params.id).remove().exec().then(obj => {
         return res.json(obj)
     }).catch(err => {
         console.log("error!")
         return res.status(400).send({ "message": "Bad Request " + err });
     })
+
 })
 
 router.patch('/update/:id', verified, async (req, res) => {
