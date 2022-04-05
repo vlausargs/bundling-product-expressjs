@@ -110,11 +110,9 @@ router.delete('/delete/:id', verified, async (req, res) => {
 
 router.patch('/update/:id', verified, async (req, res) => {
     const bundle = Bundle.findById(req.params.id).then(bundle => {
-        bundle.SKU = req.body.SKU
         bundle.name = req.body.name
-        bundle.stock = req.body.stock
-        bundle.weight = req.body.weight
-        bundle.UOM = req.body.UOM
+        bundle.qty = req.body.qty
+        bundle.productID = req.body.productID
         bundle.price = 0
 
         let lenProduct = bundle.productID.length
